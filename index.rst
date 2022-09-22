@@ -29,7 +29,8 @@ https://foreman.tuc.lsst.cloud/hosts?search=facts.yum_reboot_required+%3D+true&p
 https://foreman.tuc.lsst.cloud/hosts?search=os+%3D+CentOS+and+last_report+%3E+%222+hours+ago%22&page=1
 
    b) Search for live centos nodes that possibly failed when running. (`os = CentOS and last_report > "2 hours ago" and (status.failed > 0 or status.failed_restarts > 0 or status.skipped > 0)`)
-https://foreman.cp.lsst.org/hosts?search=os+%3D+CentOS+and+last_report+%3E+%222+hours+ago%22+and+%28status.failed+%3E+0+or+status.failed_restarts+%3E+0+or+status.skipped+%3E+0%29&page=1 
+https://foreman.cp.lsst.org/hosts?search=os+%3D+CentOS+and+last_report+%3E+%222+hours+ago%22+and+%28status.failed+%3E+0+or+status.failed_restarts+%3E+0+or+status.skipped+%3E+0%29&page=1
+
 *needs to be revised to work with almalinux*
 
 5. Announce on relevant slack that OS update is starting
@@ -51,6 +52,7 @@ https://foreman.cp.lsst.org/hosts?search=os+%3D+CentOS+and+last_report+%3E+%222+
   d) procedure for checking ipa replication. (`E.g. ipa-replica-manage list -v <host>`)
 
   e) After all core nodes have been rebooted, check on the rancher cluster
+
     - `kubectl get nodes` to shows all nodes
     - Rancher dashboard is accessible
     - *add icinga checks for this*
@@ -67,6 +69,7 @@ https://foreman.ls.lsst.org/hosts?search=os+%3D+CentOS+and+last_report+%3E+%222+
   b) Reboot all k8s nodes running ceph at the same time to avoid ceph wasting time on recovery
 
 11. Run misc/brutal reboot
+
   a) This is heavy handed but avoids issues in particular with ceph nodes hanging during shutdown.
 
   b) Use foreman rex to run `ls` on nodes as a sanity check that they are back online.
