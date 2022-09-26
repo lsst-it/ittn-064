@@ -35,7 +35,7 @@ OS Update Playbook
 6. Run the misc / os update prepare job templates on all nodes. (this will use lot of bandwidth and take some time)
    - This cleans up yum transactions, forces a puppet agent run, and pre-downloads rpms.
 
-7. Run :command: `yum update -y` with `os update no-reboot` job template on all nodes
+7. Run :command:`yum update -y` with `os update no-reboot` job template on all nodes
 
 8. Reboot libvirt hypervisors first. This will cause the VMs on them to be restarted as well and avoid having the VMs down twice (once for the hypervisor and again to apply kernel updates).  The core nodes must only be down one at a time.  Verify that the VMs are accessible again for each node before rebooting the next.
 
