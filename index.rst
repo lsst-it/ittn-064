@@ -22,17 +22,11 @@ OS Update Playbook
 
    *needs to be revised to work with almalinux*
 
-3. Check for nodes which yum thinks already need an update – this should be “OK” but might be a sign of a past update which failed. (`facts.yum_reboot_required = true`).
+3. Check for nodes which yum thinks already need an update – this should be “OK” but might be a sign of a past update which failed. (`facts.yum_reboot_required = true <https://foreman.tuc.lsst.cloud/hosts?search=facts.yum_reboot_required+%3D+true&page=1>`__)
 
-   https://foreman.tuc.lsst.cloud/hosts?search=facts.yum_reboot_required+%3D+true&page=1
+4. a) Select “live centos nodes” in foreman. (`os = CentOS and last_report > "2 hours ago" <https://foreman.tuc.lsst.cloud/hosts?search=os+%3D+CentOS+and+last_report+%3E+%222+hours+ago%22&page=1>`__
 
-4. a) Select “live centos nodes” in foreman. (`os = CentOS and last_report > "2 hours ago"`)
-
-      https://foreman.tuc.lsst.cloud/hosts?search=os+%3D+CentOS+and+last_report+%3E+%222+hours+ago%22&page=1
-
-   b) Search for live centos nodes that possibly failed when running. (`os = CentOS and last_report > "2 hours ago" and (status.failed > 0 or status.failed_restarts > 0 or status.skipped > 0)`)
-
-      https://foreman.cp.lsst.org/hosts?search=os+%3D+CentOS+and+last_report+%3E+%222+hours+ago%22+and+%28status.failed+%3E+0+or+status.failed_restarts+%3E+0+or+status.skipped+%3E+0%29&page=1
+   b) Search for live centos nodes that possibly failed when running. (`os = CentOS and last_report > "2 hours ago" and (status.failed > 0 or status.failed_restarts > 0 or status.skipped > 0) <https://foreman.cp.lsst.org/hosts?search=os+%3D+CentOS+and+last_report+%3E+%222+hours+ago%22+and+%28status.failed+%3E+0+or+status.failed_restarts+%3E+0+or+status.skipped+%3E+0%29&page=1>`__
 
       *needs to be revised to work with almalinux*
 
