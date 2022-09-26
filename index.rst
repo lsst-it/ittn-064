@@ -41,12 +41,11 @@ OS Update Playbook
 
   - Check VM state with :command:`virsh list`
 
-  - Check that DNS is working for resolver VMs. (E.g. :command:`dig google.com @dns3.tu.lsst.org`)
-     *add icinga checks for this*
+  - Check that DNS is working for resolver VMs. (:command:`dig +short google.com @dns3.tu.lsst.org`)
 
   - Check that ipa console is accessible for each ipa VM. (*ipa console can take several minutes to come up after a boot*) *add icinga checks for this*
 
-  - Procedure for checking ipa replication. (E.g. :command:`ipa-replica-manage list -v <host>`)
+  - Procedure for checking ipa replication. (:command:`ipa-replica-manage list -v <host>`)
 
   - After all core nodes have been rebooted, check on the rancher cluster
 
@@ -64,7 +63,7 @@ OS Update Playbook
 
   -  Reboot all k8s nodes running ceph at the same time to avoid ceph wasting time on recovery
 
-11. Run misc/brutal reboot
+11. Run misc/brutal reboot scheduled task in Foreman.
 
   - This is heavy handed but avoids issues in particular with ceph nodes hanging during shutdown.
 
