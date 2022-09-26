@@ -18,9 +18,7 @@ OS Update Playbook
 
 1. Updates should generally occur first in dev, then TTS (stage), before being rolled out to LS/CP.  CP should never be ahead of TTS.
 
-2. Look for hosts in foreman which the puppet agent hasn’t phoned in recently and resolve problems prior to starting OS update. (`os = CentOS and last_report < "2 hours ago"`).
-
-   https://foreman.tuc.lsst.cloud/hosts?search=os+%3D+CentOS+and+last_report+%3C+%222+hours+ago%22&page=1
+2. Look for hosts in foreman which the puppet agent hasn’t phoned in recently and resolve problems prior to starting OS update. (`os = CentOS and last_report < "2 hours ago" <https://foreman.tuc.lsst.cloud/hosts?search=os+%3D+CentOS+and+last_report+%3C+%222+hours+ago%22&page=1>`__).
 
    *needs to be revised to work with almalinux*
 
