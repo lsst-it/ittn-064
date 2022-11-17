@@ -34,18 +34,22 @@ OS Update Playbook
 
 6. Run the misc / os update prepare job templates on all nodes. (this will use lot of bandwidth and take some time)
    - This cleans up yum transactions, forces a puppet agent run, and pre-downloads rpms.
+   
+   NOTE: sometimes some host will fail, check logs for dependency problems on puppet and run command `yum erase -y puppet7-release puppet6-release puppet-release` on failing host.
 
 7. Run :command:`yum update -y` with `os update no-reboot` job template on all nodes
 
-8. Reboot libvirt hypervisors first. This will cause the VMs on them to be restarted as well and avoid having the VMs down twice (once for the hypervisor and again to apply kernel updates).  The core nodes must only be down one at a time.  Verify that the VMs are accessible again for each node before rebooting the next.
+8. Reboot libvirt hypervisors first (Cores). This will cause the VMs on them to be restarted as well and avoid having the VMs down twice (once for the hypervisor and again to apply kernel updates).  The core nodes must only be down one at a time.  Verify that the VMs are accessible again for each node before rebooting the next.
+
+  * Select Core3 (once done choose core 2 then core 1) and schedule Job "Brutal reboot" (usually ping the host to check recovery) then Run the following checklist to verify:
 
   - Check VM state with :command:`virsh list`
 
   - Check that DNS is working for resolver VMs. (:command:`dig +short google.com @dns3.tu.lsst.org`)
 
-  - Check that ipa console is accessible for each ipa VM. (*ipa console can take several minutes to come up after a boot*) *add icinga checks for this*
+  - Check that IPA console is accessible for each IPA VM. (*ipa console can take several minutes to come up after a boot*) *add icinga checks for this*
 
-  - Procedure for checking ipa replication. (:command:`ipa-replica-manage list -v <host>`)
+  - Procedure for checking IPA replication. (:command:`ipa-replica-manage list -v <host>`)
 
   - After all core nodes have been rebooted, check on the rancher cluster
 
@@ -55,13 +59,17 @@ OS Update Playbook
 
   - Make sure that DHCP is running on the foreman VM
 
-9. Reboot any other VMs (non-core node VMs)
+  - Do the same for the next Core till done.
+
+9. Reboot any other VMs (non-core node VMs) 
+
+   *query for the VMs that are on ESXI and reboot them separately is needed*
 
 10. Select “live centos nodes baremetal" in foreman (`os = CentOS and last_report > "2 hours ago" and facts.virtual = physical <https://foreman.ls.lsst.org/hosts?search=os+%3D+CentOS+and+last_report+%3E+%222+hours+ago%22+and+facts.virtual+%3D+physical&page=1>`__)
 
-  -  Select all nodes except for the **core nodes and VMs running on core nodes AND auxtel/comcam/lsstcam nodes** which will be rebooted by the camera/commissioning team.
+  -  Select all nodes except for the **core nodes and VMs running on core nodes AND auxtel/comcam/lsstcam nodes** which will be rebooted by the camera/commissioning team (on CP Only).
 
-  -  Reboot all k8s nodes running ceph at the same time to avoid ceph wasting time on recovery
+  -  Reboot all k8s nodes running ceph at the same time to avoid ceph wasting time on recovery.
 
 11. Run misc/brutal reboot scheduled task in Foreman.
 
